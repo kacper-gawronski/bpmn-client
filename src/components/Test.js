@@ -21,31 +21,9 @@ const Test = () => {
             });
     }
 
-    const startProcess = async () => {
-        // POST request using fetch inside useEffect React hook
-        const requestOptions = {
-            method: 'POST',
-        };
-        await fetch('http://localhost:8080/deploy', requestOptions)
-            .then(async (response) => {
-                setLoading(false);
-            })
-            .catch((e) => {
-                setError(e.toString());
-                setLoading(false);
-                console.error('There was an error!', e);
-            });
-    }
-
     useEffect(() => {
         setLoading(true);
         fetchData();
-
-    }, []);
-
-    useEffect(() => {
-        setLoading(true);
-        startProcess();
 
     }, []);
 
