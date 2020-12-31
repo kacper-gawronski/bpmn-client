@@ -6,9 +6,9 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+}
 
-const Model = () => {
+const Bpmn = () => {
     const { register, handleSubmit, errors } = useForm();
 
     const [inputFile, setInputFile] = useState(null);
@@ -49,6 +49,24 @@ const Model = () => {
         );
     };
 
+    const setNumberOfSimulationsToServer = async (data) => {
+        await fetch(endpoints.setNumberOfSimulations, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data,
+        }).then(
+            response => response.json()
+        ).then(
+            success => {
+                console.log(success);
+            }
+        ).catch(
+            error => console.log(error)
+        );
+    }
+
     const setVariablesToServer = async (data) => {
         await fetch(endpoints.setVariables, {
             method: 'POST',
@@ -68,7 +86,7 @@ const Model = () => {
     };
 
     const setTasksValuesToServer = async (data) => {
-        await fetch(endpoints.setTaskValues, {
+        await fetch(endpoints.setTasksValues, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -86,9 +104,7 @@ const Model = () => {
     };
 
     const sendDeployToServer = async () => {
-        await fetch(endpoints.deployProcess, {
-            method: 'POST',
-        }).then(
+        await fetch(endpoints.deployProcess).then(
             response => response.json()
         ).then(
             success => {
@@ -100,9 +116,7 @@ const Model = () => {
     };
 
     const startSimulationOnServer = async () => {
-        await fetch(endpoints.simulationProcess, {
-            method: 'POST',
-        }).then(
+        await fetch(endpoints.simulationProcess).then(
             response => response.json()
         ).then(
             success => {
@@ -114,9 +128,7 @@ const Model = () => {
     };
 
     const deployAndSimulateProcessOnServer = async () => {
-        await fetch(endpoints.deployAndSimulateProcess, {
-            method: 'POST',
-        }).then(
+        await fetch(endpoints.deployAndSimulateProcess).then(
             response => response.json()
         ).then(
             success => {
@@ -147,14 +159,19 @@ const Model = () => {
     const sendValues = (data) => {
         console.log(data);
 
+        // set number of simulations
+        console.log(data.numberOfSimulations);
+        setNumberOfSimulationsToServer(data.numberOfSimulations);
+
         // set variables
         const variablesRequest = {};
         Object.assign(variablesRequest, data);
         delete variablesRequest.tasks;
+        delete variablesRequest.numberOfSimulations;
         console.log(variablesRequest);
         setVariablesToServer(variablesRequest);
 
-        // set tasksValues
+        // set tasks values
         var tasksRequest = {};
         Object.assign(tasksRequest, tasks);
         tasksRequest = Object.keys(tasksRequest).map(element => {
@@ -183,8 +200,8 @@ const Model = () => {
         <Fragment>
             {processInfo ?
                 <div>
-                    <p>Określ prawdopodobieństwo wyboru wartości dla każdej zmiennej.</p>
                     <form onSubmit={handleSubmit(sendValues)}>
+                        <p>Podaj wartości dla każdego zadania:</p>
                         <div className="tasks">
                             {tasks.map(task => {
                                 return (
@@ -210,7 +227,7 @@ const Model = () => {
                                                     key={task.taskId + 'CostInput'}
                                                     type='number'
                                                     name={'tasks.' + task.taskId + '.' + 'cost'}
-                                                    defaultValue={getRandomInt(10,30)}
+                                                    defaultValue={getRandomInt(10, 30)}
                                                     ref={register({
                                                         required: true,
                                                         min: 0,
@@ -223,6 +240,7 @@ const Model = () => {
                             })}
                         </div>
 
+                        <p>Określ prawdopodobieństwo wyboru wartości dla każdej zmiennej:</p>
                         <div className="variables">
                             {Object.keys(variables.variablesWithProbabilities).map(key => {
                                 return (
@@ -261,6 +279,19 @@ const Model = () => {
                             })}
                         </div>
 
+                        <div>
+                            <label>Podaj jaką ilość symulacji chcesz przeprowadzić</label>
+                            <input
+                                type='number'
+                                name='numberOfSimulations'
+                                defaultValue={1}
+                                ref={register({
+                                    required: true,
+                                    min: 1,
+                                    max: 1000,
+                                })}
+                            />
+                        </div>
 
                         <input type="submit" />
                     </form>
@@ -304,7 +335,7 @@ const Model = () => {
                         {errors.file && errors.file.type === "textXml" && (
                             <p style={{ color: '#FF0000' }}>Ten plik nie jest w formacie XML</p>
                         )}
-                        
+
                     </form>
 
                 </div>
@@ -314,4 +345,4 @@ const Model = () => {
 
 }
 
-export default Model;
+export default Bpmn;

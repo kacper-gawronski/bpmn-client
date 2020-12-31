@@ -1,5 +1,5 @@
 import './App.css';
-import Model from './components/Model';
+import Bpmn from './components/Bpmn';
 
 const App = () => {
 
@@ -8,7 +8,7 @@ const App = () => {
     <div className="App">
       <p>Witaj w aplikacji służącej do symualcji procesów biznesowych</p>
 
-      <Model />
+      <Bpmn />
     </div>
   );
 }
