@@ -1,5 +1,4 @@
-import { AppBar, colors, createStyles, makeStyles, Typography } from '@material-ui/core';
-import './App.css';
+import { createStyles, makeStyles } from '@material-ui/core';
 import Bpmn from './components/Bpmn';
 
 

@@ -1,4 +1,4 @@
-import { AppBar, Button, colors, createStyles, Divider, makeStyles, Typography } from '@material-ui/core';
+import { AppBar, Button, colors, createStyles, makeStyles, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { endpoints } from '../endpoints';
