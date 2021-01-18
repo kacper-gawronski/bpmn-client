@@ -1,4 +1,4 @@
-import {createStyles, makeStyles} from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core';
 import Bpmn from './components/Bpmn';
 
 const useStyles = makeStyles((theme) =>
@@ -23,8 +23,8 @@ const App = () => {
     return (
         <div className={classes.app}>
             <div className={classes.content}>
-                <div className={classes.header}/>
-                <Bpmn/>
+                <div className={classes.header} />
+                <Bpmn />
             </div>
         </div>
     );

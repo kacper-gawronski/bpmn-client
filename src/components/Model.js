@@ -1,7 +1,7 @@
-import {AppBar, Button, colors, createStyles, makeStyles, Typography} from '@material-ui/core';
-import React, {useState} from 'react';
-import {useForm} from 'react-hook-form';
-import {endpoints} from '../endpoints';
+import { AppBar, Button, colors, createStyles, makeStyles, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { endpoints } from '../endpoints';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-const Model = ({setProcessInfo, setTasks, setVariables}) => {
+const Model = ({ setProcessInfo, setTasks, setVariables }) => {
     const classes = useStyles();
-    const {register, handleSubmit, errors} = useForm();
+    const { register, handleSubmit, errors } = useForm();
 
     const [inputFile, setInputFile] = useState(null);
 
@@ -111,7 +111,7 @@ const Model = ({setProcessInfo, setTasks, setVariables}) => {
                     </label>
                     <div className={classes.fileInput}>
                         <Button color="secondary" variant="contained" component="label" size='large' fullWidth
-                                className={classes.button}>
+                            className={classes.button}>
                             Wybierz plik
                             <input
                                 name='file'
@@ -142,7 +142,7 @@ const Model = ({setProcessInfo, setTasks, setVariables}) => {
 
                 <div className={classes.buttonAndErrors}>
                     <Button color='primary' type='submit' variant="contained" size='large' fullWidth
-                            className={classes.button}>Prześlij plik</Button>
+                        className={classes.button}>Prześlij plik</Button>
                     <div className={classes.errors}>
                         {errors.file && errors.file.type === "required" && (
                             <Typography color='error' variant='subtitle2'>Musisz przesłać plik</Typography>

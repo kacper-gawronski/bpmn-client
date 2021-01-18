@@ -10,9 +10,9 @@ import {
     makeStyles,
     Typography
 } from '@material-ui/core';
-import {DataGrid} from '@material-ui/data-grid';
+import { DataGrid } from '@material-ui/data-grid';
 import clsx from 'clsx';
-import React, {Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 
 
 const calculateDuration = (durationInMinutes) => {
@@ -166,16 +166,16 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const Results = ({processInfo, simulationResult, setProcessInfo, setSimulationResult}) => {
+const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationResult }) => {
     const classes = useStyles();
-    const {processInstances, sumOfDurations, sumOfCosts} = simulationResult;
+    const { processInstances, sumOfDurations, sumOfCosts } = simulationResult;
     const [durations, setDurations] = useState(calculateDuration(sumOfDurations));
 
     const tableColumns = [
-        {field: 'id', headerName: 'ID'},
-        {field: 'name', headerName: 'Nazwa zadania', width: 300},
-        {field: 'duration', headerName: 'Czas trwania [min]', width: 180},
-        {field: 'cost', headerName: 'Koszt [PLN]', width: 150},
+        { field: 'id', headerName: 'ID' },
+        { field: 'name', headerName: 'Nazwa zadania', width: 300 },
+        { field: 'duration', headerName: 'Czas trwania [min]', width: 180 },
+        { field: 'cost', headerName: 'Koszt [PLN]', width: 150 },
     ];
 
     const modifySimulation = () => {
@@ -196,8 +196,8 @@ const Results = ({processInfo, simulationResult, setProcessInfo, setSimulationRe
             </AppBar>
 
             <Typography className={classes.section} variant='h6'>Rezultaty ogólne</Typography>
-            <Divider/>
-            <Divider/>
+            <Divider />
+            <Divider />
 
             <Fragment>
 
@@ -255,8 +255,8 @@ const Results = ({processInfo, simulationResult, setProcessInfo, setSimulationRe
 
             <div className={classes.instances}>
                 <Typography className={classes.section} variant='h6'>Rezultaty szczegółowe</Typography>
-                <Divider/>
-                <Divider className={classes.divider}/>
+                <Divider />
+                <Divider className={classes.divider} />
 
                 {processInstances.map(instance => {
 
@@ -265,7 +265,7 @@ const Results = ({processInfo, simulationResult, setProcessInfo, setSimulationRe
                             id: instance.simulationActivities.indexOf(x) + 1,
                             name: x.name,
                             duration: x.duration,
-                            cost: x.cost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                            cost: x.cost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                         });
                     });
 
@@ -316,9 +316,9 @@ const Results = ({processInfo, simulationResult, setProcessInfo, setSimulationRe
                     Zmodyfikuj parametry symulacji
                 </Button>
                 <Button color='secondary'
-                        variant='contained'
-                        size='large'
-                        onClick={createNewsimulation}
+                    variant='contained'
+                    size='large'
+                    onClick={createNewsimulation}
                 >
                     Przeprowadź symulację dla innego modelu
                 </Button>

@@ -9,9 +9,9 @@ import {
     TextField,
     Typography
 } from '@material-ui/core';
-import React, {Fragment} from 'react';
-import {useForm} from 'react-hook-form';
-import {endpoints} from '../endpoints';
+import React, { Fragment } from 'react';
+import { useForm } from 'react-hook-form';
+import { endpoints } from '../endpoints';
 
 
 function getRandomInt(min, max) {
@@ -66,10 +66,10 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
+const Parameters = ({ processInfo, tasks, variables, setSimulationResult }) => {
     const classes = useStyles();
 
-    const {register, handleSubmit, errors, getValues} = useForm();
+    const { register, handleSubmit, errors, getValues } = useForm();
 
 
     const setNumberOfSimulationsToServer = async (data) => {
@@ -186,8 +186,8 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
                 <Typography variant='h6'>
                     Podaj wartości dla każdego zadania
                 </Typography>
-                <Divider/>
-                <Divider className={classes.divider}/>
+                <Divider />
+                <Divider className={classes.divider} />
                 <div className="tasks">
                     {tasks.map(task => {
                         return (
@@ -211,19 +211,19 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
                                         />
                                         <div className={classes.variableError}>
                                             {errors.tasks &&
-                                            errors.tasks[task.taskId] &&
-                                            errors.tasks[task.taskId].duration &&
-                                            errors.tasks[task.taskId].duration.type === "required" && (
-                                                <Typography color='error' variant='body2'>Pole nie może być
+                                                errors.tasks[task.taskId] &&
+                                                errors.tasks[task.taskId].duration &&
+                                                errors.tasks[task.taskId].duration.type === "required" && (
+                                                    <Typography color='error' variant='body2'>Pole nie może być
                                                     puste</Typography>
-                                            )}
+                                                )}
                                             {errors.tasks &&
-                                            errors.tasks[task.taskId] &&
-                                            errors.tasks[task.taskId].duration &&
-                                            errors.tasks[task.taskId].duration.type === "min" && (
-                                                <Typography color='error' variant='body2'>Wartość nie może być
+                                                errors.tasks[task.taskId] &&
+                                                errors.tasks[task.taskId].duration &&
+                                                errors.tasks[task.taskId].duration.type === "min" && (
+                                                    <Typography color='error' variant='body2'>Wartość nie może być
                                                     ujemna</Typography>
-                                            )}
+                                                )}
                                         </div>
                                     </div>
                                     <div key={task.taskId + 'CostDiv'} className={classes.taskCost}>
@@ -244,19 +244,19 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
                                         />
                                         <div className={classes.variableError}>
                                             {errors.tasks &&
-                                            errors.tasks[task.taskId] &&
-                                            errors.tasks[task.taskId].cost &&
-                                            errors.tasks[task.taskId].cost.type === "required" && (
-                                                <Typography color='error' variant='body2'>Pole nie może być
+                                                errors.tasks[task.taskId] &&
+                                                errors.tasks[task.taskId].cost &&
+                                                errors.tasks[task.taskId].cost.type === "required" && (
+                                                    <Typography color='error' variant='body2'>Pole nie może być
                                                     puste</Typography>
-                                            )}
+                                                )}
                                             {errors.tasks &&
-                                            errors.tasks[task.taskId] &&
-                                            errors.tasks[task.taskId].cost &&
-                                            errors.tasks[task.taskId].cost.type === "min" && (
-                                                <Typography color='error' variant='body2'>Wartość nie może być
+                                                errors.tasks[task.taskId] &&
+                                                errors.tasks[task.taskId].cost &&
+                                                errors.tasks[task.taskId].cost.type === "min" && (
+                                                    <Typography color='error' variant='body2'>Wartość nie może być
                                                     ujemna</Typography>
-                                            )}
+                                                )}
                                         </div>
                                     </div>
                                 </div>
@@ -268,8 +268,8 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
                 <Typography className={classes.section} variant='h6'>
                     Określ prawdopodobieństwo wyboru wartości dla każdej zmiennej
                 </Typography>
-                <Divider/>
-                <Divider className={classes.divider}/>
+                <Divider />
+                <Divider className={classes.divider} />
                 <div className="variables">
                     {Object.keys(variables.variablesWithProbabilities).map(key => {
                         return (
@@ -279,13 +279,13 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
                                 {/* error for sum of probability validation */}
                                 <div>
                                     {errors[key] &&
-                                    Object.keys(variables.variablesWithProbabilities[key])
-                                        .map(subKey => errors[key][subKey])
-                                        .every((element, index, array) => element) &&
-                                    Object.keys(variables.variablesWithProbabilities[key])
-                                        .map(subKey => errors[key][subKey].type)
-                                        .every((element, index, array) => element === "validate") &&
-                                    <Typography color='error' variant='body2'>Suma prawdopodobieństw musi być równa
+                                        Object.keys(variables.variablesWithProbabilities[key])
+                                            .map(subKey => errors[key][subKey])
+                                            .every((element, index, array) => element) &&
+                                        Object.keys(variables.variablesWithProbabilities[key])
+                                            .map(subKey => errors[key][subKey].type)
+                                            .every((element, index, array) => element === "validate") &&
+                                        <Typography color='error' variant='body2'>Suma prawdopodobieństw musi być równa
                                         100</Typography>
                                     }
                                 </div>
@@ -318,23 +318,23 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
                                                 />
                                                 <div className={classes.variableError}>
                                                     {errors[key] &&
-                                                    errors[key][subKey] &&
-                                                    errors[key][subKey].type === "required" && (
-                                                        <Typography color='error' variant='body2'>Pole nie może być
+                                                        errors[key][subKey] &&
+                                                        errors[key][subKey].type === "required" && (
+                                                            <Typography color='error' variant='body2'>Pole nie może być
                                                             puste</Typography>
-                                                    )}
+                                                        )}
                                                     {errors[key] &&
-                                                    errors[key][subKey] &&
-                                                    errors[key][subKey].type === "min" && (
-                                                        <Typography color='error' variant='body2'>Wartość nie może być
+                                                        errors[key][subKey] &&
+                                                        errors[key][subKey].type === "min" && (
+                                                            <Typography color='error' variant='body2'>Wartość nie może być
                                                             ujemna</Typography>
-                                                    )}
+                                                        )}
                                                     {errors[key] &&
-                                                    errors[key][subKey] &&
-                                                    errors[key][subKey].type === "max" && (
-                                                        <Typography color='error' variant='body2'>Wartość nie może być
+                                                        errors[key][subKey] &&
+                                                        errors[key][subKey].type === "max" && (
+                                                            <Typography color='error' variant='body2'>Wartość nie może być
                                                             większa niż 100</Typography>
-                                                    )}
+                                                        )}
                                                 </div>
                                             </div>
                                         )
@@ -349,8 +349,8 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
                     <Typography className={classes.section} variant='h6'>
                         Podaj liczbę instancji procesów jaką chcesz zasymulować
                     </Typography>
-                    <Divider/>
-                    <Divider className={classes.divider}/>
+                    <Divider />
+                    <Divider className={classes.divider} />
                     <div className={classes.numberOfSimulations}>
                         <TextField
                             name='numberOfSimulations'
@@ -381,7 +381,7 @@ const Parameters = ({processInfo, tasks, variables, setSimulationResult}) => {
 
                 <div className={classes.submitButtonWrap}>
                     <Button color='primary' type='submit' variant='contained' size='large' fullWidth
-                            className={classes.submitButton}>
+                        className={classes.submitButton}>
                         Symuluj model
                     </Button>
                 </div>
