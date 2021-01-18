@@ -1,7 +1,18 @@
-import { Accordion, AccordionDetails, AccordionSummary, AppBar, Button, colors, createStyles, Divider, makeStyles, Typography } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    AppBar,
+    Button,
+    colors,
+    createStyles,
+    Divider,
+    makeStyles,
+    Typography
+} from '@material-ui/core';
+import {DataGrid} from '@material-ui/data-grid';
 import clsx from 'clsx';
-import React, { Fragment, useState } from 'react';
+import React, {Fragment, useState} from 'react';
 
 
 const calculateDuration = (durationInMinutes) => {
@@ -33,8 +44,6 @@ const calculateDuration = (durationInMinutes) => {
         "minutes": minutes,
     };
 
-    console.log(durations);
-
     return durations;
 };
 
@@ -42,17 +51,14 @@ const weeksToString = (amount) => {
     var str = amount.toString();
     if (amount === 1) {
         return "tydzień";
-    }
-    else if (amount > 1 && amount < 5) {
+    } else if (amount > 1 && amount < 5) {
         return "tygodnie";
-    }
-    else if (amount > 20
+    } else if (amount > 20
         && (str.charAt(str.length - 1) === '2'
             || str.charAt(str.length - 1) === '3'
             || str.charAt(str.length - 1) === '4')) {
         return "tygodnie";
-    }
-    else {
+    } else {
         return "tygodni";
     }
 };
@@ -60,8 +66,7 @@ const weeksToString = (amount) => {
 const daysToString = (amount) => {
     if (amount === 1) {
         return "dzień";
-    }
-    else {
+    } else {
         return "dni";
     }
 };
@@ -70,17 +75,14 @@ const hoursToString = (amount) => {
     var str = amount.toString();
     if (amount === 1) {
         return "godzina";
-    }
-    else if (amount > 1 && amount < 5) {
+    } else if (amount > 1 && amount < 5) {
         return "godziny";
-    }
-    else if (amount > 20
+    } else if (amount > 20
         && (str.charAt(str.length - 1) === '2'
             || str.charAt(str.length - 1) === '3'
             || str.charAt(str.length - 1) === '4')) {
         return "godziny";
-    }
-    else {
+    } else {
         return "godzin";
     }
 };
@@ -89,17 +91,14 @@ const minutesToString = (amount) => {
     var str = amount.toString();
     if (amount === 1) {
         return "minuta";
-    }
-    else if (amount > 1 && amount < 5) {
+    } else if (amount > 1 && amount < 5) {
         return "minuty";
-    }
-    else if (amount > 20
+    } else if (amount > 20
         && (str.charAt(str.length - 1) === '2'
             || str.charAt(str.length - 1) === '3'
             || str.charAt(str.length - 1) === '4')) {
         return "minuty";
-    }
-    else {
+    } else {
         return "minut";
     }
 };
@@ -167,16 +166,16 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationResult }) => {
+const Results = ({processInfo, simulationResult, setProcessInfo, setSimulationResult}) => {
     const classes = useStyles();
-    const { processInstances, sumOfDurations, sumOfCosts } = simulationResult;
+    const {processInstances, sumOfDurations, sumOfCosts} = simulationResult;
     const [durations, setDurations] = useState(calculateDuration(sumOfDurations));
 
     const tableColumns = [
-        { field: 'id', headerName: 'ID' },
-        { field: 'name', headerName: 'Nazwa zadania', width: 300 },
-        { field: 'duration', headerName: 'Czas trwania [min]', width: 180 },
-        { field: 'cost', headerName: 'Koszt [PLN]', width: 150 },
+        {field: 'id', headerName: 'ID'},
+        {field: 'name', headerName: 'Nazwa zadania', width: 300},
+        {field: 'duration', headerName: 'Czas trwania [min]', width: 180},
+        {field: 'cost', headerName: 'Koszt [PLN]', width: 150},
     ];
 
     const modifySimulation = () => {
@@ -197,8 +196,8 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
             </AppBar>
 
             <Typography className={classes.section} variant='h6'>Rezultaty ogólne</Typography>
-            <Divider />
-            <Divider />
+            <Divider/>
+            <Divider/>
 
             <Fragment>
 
@@ -216,7 +215,8 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                     {durations
                         ?
                         <div className={classes.flexContainer}>
-                            <Typography variant='h5' className={classes.durationElement}>Czas trwania wszystkich instancji procesów wyniósł:</Typography>
+                            <Typography variant='h5' className={classes.durationElement}>Czas trwania wszystkich
+                                instancji procesów wyniósł:</Typography>
                             {durations.weeks ? <Typography variant='h5' className={classes.resultValue}>
                                 {durations.weeks} {weeksToString(durations.weeks)}
                             </Typography> : null}
@@ -232,7 +232,8 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                         </div>
                         :
                         <Typography variant='h5'>
-                            Czas trwania wszystkich instancji procesów wyniósł: {sumOfDurations} {minutesToString(sumOfDurations)}
+                            Czas trwania wszystkich instancji procesów
+                            wyniósł: {sumOfDurations} {minutesToString(sumOfDurations)}
                         </Typography>
                     }
                 </div>
@@ -242,7 +243,10 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                         Koszt realizacji wszystkich instancji procesów wyniósł:
                     </Typography>
                     <Typography variant='h5' className={classes.resultValue}>
-                        {" " + sumOfCosts.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " PLN"}
+                        {" " + sumOfCosts.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }) + " PLN"}
                     </Typography>
                 </div>
 
@@ -251,8 +255,8 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
 
             <div className={classes.instances}>
                 <Typography className={classes.section} variant='h6'>Rezultaty szczegółowe</Typography>
-                <Divider />
-                <Divider className={classes.divider} />
+                <Divider/>
+                <Divider className={classes.divider}/>
 
                 {processInstances.map(instance => {
 
@@ -261,7 +265,7 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                             id: instance.simulationActivities.indexOf(x) + 1,
                             name: x.name,
                             duration: x.duration,
-                            cost: x.cost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                            cost: x.cost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
                         });
                     });
 
@@ -312,9 +316,9 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                     Zmodyfikuj parametry symulacji
                 </Button>
                 <Button color='secondary'
-                    variant='contained'
-                    size='large'
-                    onClick={createNewsimulation}
+                        variant='contained'
+                        size='large'
+                        onClick={createNewsimulation}
                 >
                     Przeprowadź symulację dla innego modelu
                 </Button>

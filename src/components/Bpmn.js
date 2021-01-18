@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, {Fragment, useState} from 'react';
 import Model from './Model';
 import Parameters from './Parameters';
 import Results from './Results';

@@ -1,7 +1,7 @@
-import { AppBar, Button, colors, createStyles, makeStyles, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { endpoints } from '../endpoints';
+import {AppBar, Button, colors, createStyles, makeStyles, Typography} from '@material-ui/core';
+import React, {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {endpoints} from '../endpoints';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) =>
     }),
 );
 
-const Model = ({ setProcessInfo, setTasks, setVariables }) => {
+const Model = ({setProcessInfo, setTasks, setVariables}) => {
     const classes = useStyles();
-    const { register, handleSubmit, errors } = useForm();
+    const {register, handleSubmit, errors} = useForm();
 
     const [inputFile, setInputFile] = useState(null);
 
@@ -50,10 +50,12 @@ const Model = ({ setProcessInfo, setTasks, setVariables }) => {
             response => response.text()
         ).then(
             success => {
-                console.log(success);
+                // console.log(success);
             }
         ).catch(
-            error => console.log(error)
+            error => {
+                // console.log(error)
+            }
         );
     };
 
@@ -65,54 +67,51 @@ const Model = ({ setProcessInfo, setTasks, setVariables }) => {
             response => response.json()
         ).then(
             success => {
-                console.log(success);
+                // console.log(success);
                 setTasks(success.tasks);
-
                 setVariables(success.variables);
                 setProcessInfo(success.process);
             }
         ).catch(
-            error => console.log(error)
+            error => {
+                // console.log(error)
+            }
         );
     };
 
     const onFileChange = (e) => {
-        // console.log(e.target.files[0]);
         setInputFile(e.target.files[0]);
     };
 
     const onFileUpload = () => {
-        // console.log(inputFile);
-        // console.log(inputFile.name)
         uploadFileNameToServer(inputFile.name);
         uploadFileToServer(inputFile);
     };
 
     const sendFile = (data) => {
-        // console.log(data);
         onFileUpload();
     }
-
 
     return (
         <div>
             <AppBar className={classes.appbar}>
-                <Typography variant='h5'>Witaj w aplikacji służącej do symualcji modeli procesów biznesowych</Typography>
+                <Typography variant='h5'>Witaj w aplikacji służącej do symualcji modeli procesów
+                    biznesowych</Typography>
             </AppBar>
 
             <form onSubmit={handleSubmit(sendFile)}>
                 <div>
                     <label>
-                        <Typography variant='h6' >
+                        <Typography variant='h6'>
                             Wybierz plik zawierający model w notacji BPMN XML
-                            {/* (z rozszerzeniem '.bpmn20.xml') */}
                         </Typography>
                         <Typography variant='h6' className={classes.label}>
                             (z rozszerzeniem '.bpmn20.xml')
                         </Typography>
                     </label>
                     <div className={classes.fileInput}>
-                        <Button color="secondary" variant="contained" component="label" size='large' fullWidth className={classes.button}>
+                        <Button color="secondary" variant="contained" component="label" size='large' fullWidth
+                                className={classes.button}>
                             Wybierz plik
                             <input
                                 name='file'
@@ -123,14 +122,9 @@ const Model = ({ setProcessInfo, setTasks, setVariables }) => {
                                     required: true,
                                     validate: {
                                         fileExtension: (value) => {
-                                            console.log(value[0]);
-                                            console.log(value[0].name)
-                                            // return value[0].name.endsWith(".bpmn") || value[0].name.endsWith(".bpmn20.xml");
                                             return value[0].name.endsWith(".bpmn20.xml");
                                         },
                                         textXml: (value) => {
-                                            console.log(value[0]);
-                                            console.log(value[0].type);
                                             return value[0].type === "text/xml";
                                         },
                                     }
@@ -139,28 +133,29 @@ const Model = ({ setProcessInfo, setTasks, setVariables }) => {
                         </Button>
                         {inputFile
                             ?
-                            <Typography variant='subtitle2' className={classes.fileName}>Wybrano plik: {inputFile.name}</Typography>
+                            <Typography variant='subtitle2' className={classes.fileName}>Wybrano
+                                plik: {inputFile.name}</Typography>
                             :
                             <Typography variant='subtitle2' className={classes.fileName}>Nie wybrano pliku</Typography>}
                     </div>
                 </div>
 
                 <div className={classes.buttonAndErrors}>
-                    <Button color='primary' type='submit' variant="contained" size='large' fullWidth className={classes.button}>Prześlij plik</Button>
+                    <Button color='primary' type='submit' variant="contained" size='large' fullWidth
+                            className={classes.button}>Prześlij plik</Button>
                     <div className={classes.errors}>
                         {errors.file && errors.file.type === "required" && (
                             <Typography color='error' variant='subtitle2'>Musisz przesłać plik</Typography>
                         )}
                         {errors.file && errors.file.type === "fileExtension" && (
-                            <Typography color='error' variant='subtitle2'>Rozszerzenie pliku musi być następujące: '.bpmn20.xml'</Typography>
+                            <Typography color='error' variant='subtitle2'>Rozszerzenie pliku musi być następujące:
+                                '.bpmn20.xml'</Typography>
                         )}
                         {errors.file && errors.file.type === "textXml" && (
                             <Typography color='error' variant='subtitle2'>Ten plik nie jest w formacie XML</Typography>
                         )}
                     </div>
                 </div>
-
-
 
             </form>
         </div>
