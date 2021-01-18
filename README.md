@@ -1,4 +1,6 @@
-# Application client for business process simulation in BPMN notation
+# bpmn-simulation-client 
+
+Application client for business process simulation in BPMN notation
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
