@@ -9,6 +9,7 @@ const Bpmn = () => {
     const [processInfo, setProcessInfo] = useState(null);
     const [tasks, setTasks] = useState(null);
     const [variables, setVariables] = useState(null);
+    const [numberOfSimulations, setNumberOfSimulations] = useState(null);
 
     const [simulationResult, setSimulationResult] = useState(null);
 
@@ -26,8 +27,12 @@ const Bpmn = () => {
                     {processInfo ?
                         <Parameters
                             processInfo={processInfo}
-                            tasks={tasks} variables={variables}
+                            tasks={tasks}
+                            variables={variables}
+                            setVariables={setVariables}
                             setSimulationResult={setSimulationResult}
+                            numberOfSimulations={numberOfSimulations}
+                            setNumberOfSimulations={setNumberOfSimulations}
                         />
                         :
                         <Model

@@ -95,7 +95,7 @@ const Model = ({ setProcessInfo, setTasks, setVariables }) => {
     return (
         <div>
             <AppBar className={classes.appbar}>
-                <Typography variant='h5'>Witaj w aplikacji służącej do symualcji modeli procesów
+                <Typography variant='h5'>Witaj w aplikacji służącej do symulacji modeli procesów
                     biznesowych</Typography>
             </AppBar>
 

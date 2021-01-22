@@ -6,5 +6,6 @@ export const endpoints = {
     setNumberOfSimulations: serverAdress + '/number-of-simulations',
     setVariables: serverAdress + '/variables',
     setTasksValues: serverAdress + '/tasks-values',
+    // deploy: serverAdress + '/deploy',
     deployAndSimulateProcess: serverAdress + '/simulation',
 };

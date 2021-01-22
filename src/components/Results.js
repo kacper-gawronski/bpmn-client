@@ -136,17 +136,20 @@ const useStyles = makeStyles((theme) =>
         },
         summaryNumber: {
             flexGrow: 1,
-            width: 'auto',
+            marginRight: theme.spacing(1),
         },
         summaryDuration: {
             flexGrow: 1,
-            margin: theme.spacing(0, 2),
-            width: 'auto',
+            marginRight: theme.spacing(1),
         },
         summaryCost: {
-            width: 'auto',
-            textAlign: 'end',
+            flexGrow: 1,
+            marginRight: theme.spacing(1),
         },
+        endEvent: {
+            flexGrow: 'unset',
+        },
+
         tableWrapper: {
             height: '24rem',
             width: '100%',
@@ -250,6 +253,27 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                     </Typography>
                 </div>
 
+                <div className={clsx(classes.flexContainer, classes.label)}>
+                    <Typography variant='h5'>
+                        Średni czas trwania jednej instancji procesu wyniósł:
+                    </Typography>
+                    <Typography variant='h5' className={classes.resultValue}>
+                        {(sumOfDurations / processInstances.length).toFixed()} {minutesToString(sumOfDurations)}
+                    </Typography>
+                </div>
+
+                <div className={clsx(classes.flexContainer, classes.label)}>
+                    <Typography variant='h5'>
+                        Średni koszt realizacji jednej instancji procesu wyniósł:
+                    </Typography>
+                    <Typography variant='h5' className={classes.resultValue}>
+                        {" " + (sumOfCosts / processInstances.length).toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }) + " PLN"}
+                    </Typography>
+                </div>
+
             </Fragment>
 
 
@@ -259,6 +283,8 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                 <Divider className={classes.divider} />
 
                 {processInstances.map(instance => {
+
+                    console.log(instance);
 
                     const rows = instance.simulationActivities.map(x => {
                         return ({
@@ -276,14 +302,23 @@ const Results = ({ processInfo, simulationResult, setProcessInfo, setSimulationR
                         >
                             <AccordionSummary key={'accordionSummary' + processInstances.indexOf(instance)}>
                                 <Typography variant='subtitle2' className={classes.summaryNumber}>
-                                    Nr instancji procesu: {processInstances.indexOf(instance) + 1}
+                                    Nr instancji procesu: <b>{processInstances.indexOf(instance) + 1}</b>
                                 </Typography>
                                 <Typography variant='subtitle2' className={classes.summaryDuration}>
-                                    Całkowity czas trwania procesu: {instance.totalDuration} min
+                                    Czas trwania: <b>{instance.totalDuration} min</b>
                                 </Typography>
-                                <Typography variant='subtitle2' className={classes.summaryCost}>
-                                    Koszt całkowity procesu: {instance.totalDuration} PLN
+                                <Typography variant='subtitle2' className={clsx(classes.summaryCost, { [classes.endEvent]: instance.endEventName === null })}>
+                                    Koszt: <b>{instance.totalCost.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                })} PLN</b>
                                 </Typography>
+                                {instance.endEventName
+                                    ?
+                                    <Typography variant='subtitle2' className={classes.endEvent}>
+                                        Zdarzenie końcowe: <b>{instance.endEventName}</b>
+                                    </Typography>
+                                    : null}
                             </AccordionSummary>
 
                             <AccordionDetails key={'accordionDetails' + processInstances.indexOf(instance)}>

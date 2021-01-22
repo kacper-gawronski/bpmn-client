@@ -9,7 +9,7 @@ import {
     TextField,
     Typography
 } from '@material-ui/core';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { endpoints } from '../endpoints';
 
@@ -66,11 +66,10 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const Parameters = ({ processInfo, tasks, variables, setSimulationResult }) => {
+const Parameters = ({ processInfo, tasks, variables, setVariables, setSimulationResult, numberOfSimulations, setNumberOfSimulations }) => {
     const classes = useStyles();
 
     const { register, handleSubmit, errors, getValues } = useForm();
-
 
     const setNumberOfSimulationsToServer = async (data) => {
         await fetch(endpoints.setNumberOfSimulations, {
@@ -149,13 +148,19 @@ const Parameters = ({ processInfo, tasks, variables, setSimulationResult }) => {
 
     const sendValues = (data) => {
         // set number of simulations
+        setNumberOfSimulations(data.numberOfSimulations);
         setNumberOfSimulationsToServer(data.numberOfSimulations);
 
         // set variables
+        console.log(variables);
         const variablesRequest = {};
         Object.assign(variablesRequest, data);
         delete variablesRequest.tasks;
         delete variablesRequest.numberOfSimulations;
+        console.log(variablesRequest);
+        var newVariables = variables;
+        newVariables.variablesWithProbabilities = variablesRequest;
+        setVariables(newVariables);
         setVariablesToServer(variablesRequest);
 
         // set tasks values
@@ -356,7 +361,7 @@ const Parameters = ({ processInfo, tasks, variables, setSimulationResult }) => {
                             name='numberOfSimulations'
                             type='number'
                             label='Ilość instancji procesów'
-                            defaultValue={1}
+                            defaultValue={numberOfSimulations ? numberOfSimulations : 1}
                             inputRef={register({
                                 required: true,
                                 min: 1,
